@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.CandidateMapper">
+<select id="selectCadidateByPost" 
+		resultType="com.software.minzhu.bean.Candidate">
+		
+		select 
+			c.enlist_id,c.id,user_id as userid ,experience,elect_post,elect_year,u.username as username,votes ,u.image as image
+			
+		from 
+			candidate c join user u on c.user_id = u.id
+		where 
+			enlist_id=#{year} and elect_post=#{post};
+	</select>
+	
+	<select id="getCandidateById" 
+		resultType="com.software.minzhu.bean.Candidate">
+		
+		select 
+			c.id,user_id as userid ,experience,enlist_id,elect_post,elect_year,u.username as username,votes ,u.image as image<!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			candidate c join user u on c.user_id = u.id
+		where 
+			c.id = #{id};
+	</select>
+	<select id="getCandidateByUser" 
+		resultType="com.software.minzhu.bean.Candidate" parameterType="com.software.minzhu.bean.Candidate">
+		
+		select  
+c.id,user_id as userid ,experience,elect_post,elect_year,u.username as username,votes ,u.image as image
+  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			candidate c join user u on c.user_id = u.id
+		where 
+			user_id = #{userid} and enlist_id=#{enlist_id} and elect_post=#{elect_post} limit 1;
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Candidate"  >
+		
+		select 
+		id,	user_id as userid ,experience,elect_post,elect_year,username,votes,enlist_id
+		from 
+			candidate
+		where enlist_id = #{elect_id}
+		<if test="keyword!=null">and 
+		
+			(user_id=#{keyword} or username = #{keyword})
+			
+			</if>
+	</select>
+	
+	
+	<select id="selectMycandidate" 
+		resultType="com.software.minzhu.bean.Candidate"  >
+		
+		select 
+		id,	user_id as userid ,experience,elect_post,elect_year,username,votes
+		from 
+			candidate
+		where user_id = #{id}
+		<if test="keyword!=null">where 
+		
+			user_id=#{keyword} or username = #{keyword}
+			
+			</if>
+	</select>
+	<insert id="insert" parameterType="com.software.minzhu.bean.Candidate">
+		insert into candidate (
+			user_id ,experience,elect_post,elect_year,username,votes,enlist_id
+			<!-- phone,sex,age,
+			address,post,
+			,education  -->
+		)  values(
+			#{userid} ,#{experience},#{elect_post},
+			#{elect_year} ,#{username},#{votes},#{elect_id}
+			<!-- #{phone},#{sex},#{age},
+			#{address},#{post},
+			#{education}  -->
+		);
+
+	</insert> 
+	 <update id="updateCandidateById" >
+	 	update candidate
+	 	set
+	 	elect_post = #{elect_post},
+	 	experience = #{experience}
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  <update id="updateVote">
+	 	update candidate
+	 	set
+	 	
+			votes = #{vote}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 <delete id="deleteByid">
+	 delete from candidate where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

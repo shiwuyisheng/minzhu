@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.HuKouUserRelationMapper">
+
+<select id="getAllByHuKouId" 
+		resultType="com.software.minzhu.bean.HuKouUserRelation">
+		
+		select 
+			hur.hukou_id,u.username as username,master_relation,hur.user_id,u.image as image,u.age as age
+		from 
+			hukou_user_relation hur join user u on hur.user_id = u.idnumber
+		where 
+			hur.hukou_id=#{id} and hur.master_relation !="户主";
+	</select>
+	
+	<select id="getHuKouByIdnumber" 
+		resultType="com.software.minzhu.bean.HuKouUserRelation">
+		
+		select 
+			hur.hukou_id,u.username as username,master_relation,hur.user_id
+		from 
+			hukou_user_relation hur join user u on hur.user_id = u.idnumber
+		where 
+			hur.user_id=#{id} ;
+	</select>
+	<select id="selectAll"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+		*
+			<!-- idnumber,username,sex,address,born_date -->
+			
+			<!-- DATE_FORMAT(create_time,'%Y-%m-%d') createTimeOuput -->
+			<!-- FROM_UNIXTIME(create_time,'%Y年%m月%d日')  as createTimeOuput -->
+		
+		from 
+			user		
+			
+			<if test="number!=null and limit!=null">
+            limit #{number},#{limit}
+        </if>;
+	</select>
+	<select id="getAdmin"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+		*
+		from 
+			user		
+		order by level desc;
+	</select>
+	<select id="getUserById" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+			id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			id = #{id};
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	<select id="getUserCount" resultType="java.lang.Integer">
+	select count(id) from user;</select>
+	
+	
+	<select id="getAnalyseGroupBySex"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		sex,count(id) as count
+		from 
+			user group by sex order by count;		
+	</select>
+	<select id="getAnalyseGroupByAge"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		age,count(id) as count
+		from 
+			user group by age order by count;		
+	</select>
+	<select id="getAnalyseGroupByEducation"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		education,count(id) as count
+		from 
+			user group by education order by count;		
+	</select>
+	<insert id="addHuKouRelation"  parameterType="com.software.minzhu.bean.HuKouUserRelation">
+		insert into hukou_user_relation (
+			hukou_id,user_id,master_relation
+			
+		)  values(#{hukou_id},#{user_id},#{master_relation});
+
+	</insert> 
+	 <update id="update">
+	 	update user
+	 	set
+	 	username = #{username} ,
+	 	idnumber = #{idnumber},
+			 phone = #{phone},
+			 sex= #{sex},
+			 age = #{age},
+			address = #{address},
+			post = #{post},
+			education = #{education},
+			face =#{face}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  <update id="updatePassword">
+	 	update user
+	 	set
+	 	
+			password = #{newPassword}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	  
+	  <update id="updateHasElect">
+	 	update user
+	 	set
+	 	
+			has_elected = 1
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 
+	  <update id="updateLevel">
+	 	update user
+	 	set
+	 	
+			level = #{level}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 <delete id="deleteByHuKouId">
+	 delete from hukou_user_relation where hukou_id = #{id};
+	 </delete>
+	
+	<!-- 添加用户信息 -->
+	<!-- void  insert(User user); -->
+	
+	<!-- <insert id="insert" parameterType="cn.tedu.store.bean.User">
+		insert into t_user (
+			username,password,
+			phone,email,gender,
+			created_user,created_time,
+			modified_user,modified_time
+		)  values(
+			#{username},#{password},
+			#{phone},#{email},#{gender},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		);
+
+	</insert> -->
+	<!-- 通过用户名查询 -->
+	<!-- User getUserByUsername(String username); -->
+	<!-- <select id="getUserByUsername" 
+		resultType="cn.tedu.store.bean.User">
+		
+		select 
+			id,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		from 
+			t_user
+		where 
+			username=#{username};
+	</select>
+	
+	根据email查询
+	Integer getCountByEmail(String email);
+	<select id="getCountByEmail" 
+		resultType="java.lang.Integer">
+		select 
+			count(email)
+		from 
+			t_user
+		where 
+			email=#{email}
+		
+	</select>
+	
+	根据phone查询
+	Integer getCountByPhone(String Phone);
+	<select id="getCountByPhone" 
+		resultType="java.lang.Integer">
+		select 
+			count(phone)
+		from 
+			t_user
+		where 
+			phone=#{phone}
+		
+	</select>
+	
+	修改用户
+	void update(User user)
+	<update id="update" parameterType=
+		"cn.tedu.store.bean.User">
+		update t_user
+		set 
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="gender != null">
+				gender = #{gender},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			modified_user = #{modifiedUser},
+			modified_time = #{modifiedTime}
+		where 
+			id = #{id}
+	</update>
+
+	根据id查询用户信息
+	User getUserById(Integer id)
+	
+	<select id="getUserById" resultType="cn.tedu.store.bean.User">
+		select 
+			id,username,password,phone,image,
+			email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		from 
+			t_user
+		where
+			id=#{id}
+	</select>
+	
+	
+	void updateImageById(
+			@Param("userid") Integer userid,
+			@Param("image") String image)
+	-->
+	 <update id="updateImageById">
+	 	update user
+	 	set
+	 		image = #{image}
+	 	where 
+	 		id=#{userid}
+	 </update> 
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

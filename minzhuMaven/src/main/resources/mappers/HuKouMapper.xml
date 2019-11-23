@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.HuKouMapper">
+
+<select id="getHuKouBymasterIdnumber" 
+		resultType="com.software.minzhu.bean.HuKou">
+		
+		select 
+			*
+		from 
+			hukou
+		where 
+			master_id=#{master_idnumber};
+	</select>
+	
+	<select id="getHuKouById" 
+		resultType="com.software.minzhu.bean.HuKou">
+		
+		select 
+			number,h.id,master_id, u.username as master_username,u.image as image,u.age as age
+		from 
+			hukou h	 join user u on h.master_id = u.idnumber
+		where 
+			h.id=#{id};
+	</select>
+	<select id="selectAll"  
+		resultType="com.software.minzhu.bean.HuKou">
+		
+		select 
+		number,h.id,master_id, u.username as master_username
+			
+		
+		from 
+			hukou h	 join user u on h.master_id = u.idnumber
+			
+			<if test="keyword!=null">
+            where u.username=#{keyword} or h.master_id=#{keyword}
+       		 </if>;
+	</select>
+	<select id="getAdmin"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+		*
+		from 
+			user		
+		order by level desc;
+	</select>
+	<select id="getUserById" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+			id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			id = #{id};
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	<select id="getUserCount" resultType="java.lang.Integer">
+	select count(id) from user;</select>
+	
+	
+	<select id="getAnalyseGroupBySex"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		sex,count(id) as count
+		from 
+			user group by sex order by count;		
+	</select>
+	<select id="getAnalyseGroupByAge"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		age,count(id) as count
+		from 
+			user group by age order by count;		
+	</select>
+	<select id="getAnalyseGroupByEducation"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		education,count(id) as count
+		from 
+			user group by education order by count;		
+	</select>
+	<insert id="addHuKou" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.HuKou">
+		insert into hukou (
+			number ,master_id
+			
+		)  values(#{number},#{master_id}
+			
+		);
+
+	</insert> 
+	 <update id="updatebyId">
+	 	update hukou
+	 	set
+	 	master_id=#{master_id},number=#{number}
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  <update id="updatePassword">
+	 	update user
+	 	set
+	 	
+			password = #{newPassword}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	  
+	  <update id="updateHasElect">
+	 	update user
+	 	set
+	 	
+			has_elected = 1
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 
+	  <update id="updateLevel">
+	 	update user
+	 	set
+	 	
+			level = #{level}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 <delete id="deleteById">
+	 delete from hukou where id = #{id};
+	 </delete>
+	
+	<!-- 添加用户信息 -->
+	<!-- void  insert(User user); -->
+	
+	<!-- <insert id="insert" parameterType="cn.tedu.store.bean.User">
+		insert into t_user (
+			username,password,
+			phone,email,gender,
+			created_user,created_time,
+			modified_user,modified_time
+		)  values(
+			#{username},#{password},
+			#{phone},#{email},#{gender},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		);
+
+	</insert> -->
+	<!-- 通过用户名查询 -->
+	<!-- User getUserByUsername(String username); -->
+	<!-- <select id="getUserByUsername" 
+		resultType="cn.tedu.store.bean.User">
+		
+		select 
+			id,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		from 
+			t_user
+		where 
+			username=#{username};
+	</select>
+	
+	根据email查询
+	Integer getCountByEmail(String email);
+	<select id="getCountByEmail" 
+		resultType="java.lang.Integer">
+		select 
+			count(email)
+		from 
+			t_user
+		where 
+			email=#{email}
+		
+	</select>
+	
+	根据phone查询
+	Integer getCountByPhone(String Phone);
+	<select id="getCountByPhone" 
+		resultType="java.lang.Integer">
+		select 
+			count(phone)
+		from 
+			t_user
+		where 
+			phone=#{phone}
+		
+	</select>
+	
+	修改用户
+	void update(User user)
+	<update id="update" parameterType=
+		"cn.tedu.store.bean.User">
+		update t_user
+		set 
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="username != null">
+				username = #{username},
+			</if>
+			<if test="gender != null">
+				gender = #{gender},
+			</if>
+			<if test="phone != null">
+				phone = #{phone},
+			</if>
+			<if test="email != null">
+				email = #{email},
+			</if>
+			modified_user = #{modifiedUser},
+			modified_time = #{modifiedTime}
+		where 
+			id = #{id}
+	</update>
+
+	根据id查询用户信息
+	User getUserById(Integer id)
+	
+	<select id="getUserById" resultType="cn.tedu.store.bean.User">
+		select 
+			id,username,password,phone,image,
+			email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime
+		from 
+			t_user
+		where
+			id=#{id}
+	</select>
+	
+	
+	void updateImageById(
+			@Param("userid") Integer userid,
+			@Param("image") String image)
+	-->
+	 <update id="updateImageById">
+	 	update user
+	 	set
+	 		image = #{image}
+	 	where 
+	 		id=#{userid}
+	 </update> 
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

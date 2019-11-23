@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.DecisionResultMapper">
+
+<resultMap id="ChooseMapping" type="java.util.HashMap" >
+ <result property="key" column="choose"></result>
+<!--  <result property="value" column="cateName"></result> -->
+</resultMap>
+<select id="checkByUserId"   
+		resultType="java.lang.Integer">
+		
+		select 
+			count(1)
+			
+		from 
+			decision_result
+			
+		where 
+			user_id=#{user_id} and decision_id = #{decision_id} 
+			
+	</select>
+	
+	<select id="getDecisionByUserId"   
+		resultType="com.software.minzhu.bean.DecisionResult">
+		
+		select 
+			
+			 id,decision_id as decisionId,
+	 user_id as userid,
+	
+	decision_question_id as decisionQuestionId,
+	 choose
+			
+		from 
+			decision_result
+			
+		where 
+			user_id=#{user_id} and decision_id = #{decision_id} 
+			
+	</select>
+<select id="getResultByUserId"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.DecisionResult">
+		
+		select 
+			*
+		from 
+			decision_result
+			
+		where 
+			user_id=#{userid} and decision_id = #{decisionId}
+	</select>
+	
+	<select id="getResultGroupByChoose"   
+		resultType="com.software.minzhu.bean.DecisionResultVO">
+	
+	select 
+		choose, count(id) as count
+		from decision_result where decision_id = #{id} group by choose 
+		<!-- select 
+		choose, dr.decision_id as decisionId, dq.question_option as questionOption,dr.user_id as userId,u.username
+		,u.sex,u.education,u.age
+		from decision_result dr join user u on dr.user_id = u.idnumber 
+			join decision_question as dq on dq.decision_id = dr.decision_id -->
+	</select>
+
+
+
+
+	<select id="getResultGroupBySex"   
+		resultType="com.software.minzhu.bean.DecisionResultVO">
+	
+	select 
+		dr.choose,u.sex, count(u.id) as count
+		from decision_result dr join user u on dr.user_id = u.idnumber where decision_id = #{id} group by sex,choose 
+		order by choose,count
+	</select>
+	
+	<select id="getResultGroupByEducation"   
+		resultType="com.software.minzhu.bean.DecisionResultVO">
+	
+	select 
+		choose,u.education, count(u.id) as count
+		from decision_result dr join user u on dr.user_id = u.idnumber where decision_id = #{id} group by education,choose
+		
+	</select>
+	
+	<!-- <select id="getResultGroupByAge"  >
+	
+	select 
+		count(id) as count
+		from decision_result dr join user u on dr.user_id = u.age where decision_id = #{id} and u.age >= #{low}
+		and u.age < #{high}
+		
+	</select> -->
+	
+	<select id="countResultByid"   
+		resultType="com.software.minzhu.bean.DecisionResult">
+	
+	select 
+		decision_question_id as decisionQuestionId,choose, count(id) as count
+		from decision_result where decision_id = #{id}
+		 group by decision_question_id,choose 
+		
+	</select>
+	<insert id="insert" parameterType="com.software.minzhu.bean.DecisionResult">
+		insert into decision_result (
+			user_id ,decision_id,
+			decision_question_id,choose
+			
+		)  values(
+			#{userid} ,#{decisionId},#{decisionQuestionId}
+			,#{choose}
+			
+		);
+
+	</insert> 
+	 <update id="update">
+	 	update user
+	 	set
+	 	username = #{username} ,
+	 	idnumber = #{idnumber},
+			 phone = #{phone},
+			 sex= #{sex},
+			 age = #{age},
+			address = #{address},
+			post = #{post},
+			education = #{education},
+			face =#{face}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  
+	 <delete id="deleteLetterById">
+	 delete from letterbox where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

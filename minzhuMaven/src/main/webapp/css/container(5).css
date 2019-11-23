@@ -1,0 +1,9 @@
+.cxzx_h{ width:120px; height:45px; line-height:45px; text-align:center;}
+.cxzx_h a{ display:block; background:#3687bc; font-weight:normal; font-size:18px; color:#f3f4f6;}
+.cxzx_box ul{ overflow:hidden; width:800px; padding-bottom:10px; margin-top:11px;}
+.cxzx_box ul li{ *display:inline; overflow:hidden; float:left; width:260px; height:29px; margin-right:5px; margin-bottom:3px;}
+.cxzx_box ul li span{ display:block; float:left; width:30px; height:29px; line-height:29px; padding:0; background:#87cba7; color:#FFF; text-align:center;}
+.cxzx_box ul li p{ overflow:hidden; float:left; width:228px; height:27px; background:#FFF; border:1px dotted #c1c1c1; border-left:0;}
+.cxzx_box ul li a{ line-height:27px; padding:0 15px 0 10px;}
+.cxzx_box ul li.list_c p{ *display:inline; width:228px; height:29px; margin-left:2px; border:0; background:#94bfdc;}
+.cxzx_box ul li.list_c a{ line-height:29px; background:url(bai_xsj.png) no-repeat right center; color:#FFF;}

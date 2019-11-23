@@ -1,0 +1,7 @@
+.tzgg_menu{ float:left;}
+.tzgg_h{ float:left; width:120px; height:45px; line-height:45px; text-align:center; margin-right:-120px;}
+.tzgg_h a{ display:block; font-weight:normal; color:#000;}
+.xxgk_box{ display:none;}
+.tzgg_box{ display:block; float:left; width:100%; line-height:32px; padding-bottom:10px; margin-top:50px; margin-right:-100%;}
+.tzgg_box ul li{ padding-left:5px;}
+.tzgg_box span{ padding-right:30px; color:#515151;}

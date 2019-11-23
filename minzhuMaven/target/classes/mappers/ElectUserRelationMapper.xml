@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.ElectUserRelationMapper">
+<select id="CountResultByUserId"  	resultType="java.lang.Integer">
+		
+		select 
+			count(*)
+			
+		from 
+			election_user_relation
+			
+		where 
+			user_id=#{id} and enlist_id=#{year} and elect_post=#{post} 
+			
+	</select>
+	<select id="CountResultByPost"  	resultType="java.lang.Integer">
+		
+		select 
+			count(*)
+			
+		from 
+			election_user_relation
+			
+		where 
+			user_id=#{user_id} and elect_id=#{election_id} and elect_post=#{post} 
+			
+	</select>
+	<select id="CountByUserById"  	resultType="java.lang.Integer">
+		
+		
+		select count(distinct user_id) from election_user_relation
+		
+		where 
+			year=#{year} 
+		
+			
+			
+		  
+			
+	</select>
+	<select id="analyseGroupByElectId" resultType="com.software.minzhu.bean.ElectionResult" >
+		
+		select 
+		count(id) as electedNumber
+		,elect_user_id as userId
+		,elect_post as post,year
+			
+		from 
+			election_user_relation  	
+		where 
+		year = #{year} group by elect_user_id,elect_post;
+		
+			<!-- start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date}; -->
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Decision"  >
+		
+		select 
+			id,title,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result ,enlist_id <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			decision  	
+		
+		<if test="keyword!=null">where 
+		
+			title=#{keyword}
+			
+			</if>
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,enlist_id   <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	
+	<insert id="save" parameterType="com.software.minzhu.bean.ElectUserRelation">
+		insert into election_user_relation (
+			
+			user_id,elect_user_id,elect_post,year,enlist_id
+			
+		)  values(
+			#{edr.userId} ,#{edr.electUserId}
+			,#{edr.post},#{edr.year},#{edr.enlist_id}
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateDecision" parameterType="com.software.minzhu.bean.Decision">
+	 	update decision
+	 	set
+	 	
+	 	start_date = #{decision.startDate},
+			 end_date = #{decision.endDate},
+			 title= #{decision.title}
+	 		
+	 	where 
+	 		id=#{decision.id}
+	 </update> 
+	 
+	  
+	 <delete id="deleteByid">
+	 delete from decision where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

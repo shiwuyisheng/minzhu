@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.UserMapper">
+
+<select id="getUserByUsername" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+			id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,level,image  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			username=#{username};
+	</select>
+	
+	
+	<select id="getAutoByKeywords" 
+		resultType="com.software.minzhu.bean.AutoUserVo">
+		
+		select 
+			id,username ,idnumber
+			
+			 from 
+			user
+		where 
+			username like CONCAT('%',#{keyword},'%') or idnumber like CONCAT('%',#{keyword},'%');
+	</select>
+	<select id="searchUser" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+			id,username ,idnumber,password,image,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,level  
+		from 
+			user
+		where 
+			username like CONCAT('%',#{keyword},'%')  or idnumber like CONCAT('%',#{keyword},'%')
+			
+			 or post like CONCAT('%',#{keyword},'%');
+	</select>
+	<select id="selectAll"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+		*
+			<!-- idnumber,username,sex,address,born_date -->
+			
+			<!-- DATE_FORMAT(create_time,'%Y-%m-%d') createTimeOuput -->
+			<!-- FROM_UNIXTIME(create_time,'%Y年%m月%d日')  as createTimeOuput -->
+		
+		from 
+			user		
+			
+			<if test="number!=null and limit!=null">
+            limit #{number},#{limit}
+        </if>;
+	</select>
+	<select id="getAdmin"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+		*
+		from 
+			user		
+		order by level desc;
+	</select>
+	<select id="getUserById" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select 
+			id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			id = #{id};
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date,has_elected,image,level  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	<select id="getUserCount" resultType="java.lang.Integer">
+	select count(id) from user;</select>
+	
+	
+	<select id="getAnalyseGroupBySex"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		sex,count(id) as count
+		from 
+			user group by sex order by count;		
+	</select>
+	<select id="getAnalyseGroupByAge"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		age,count(id) as count
+		from 
+			user group by age order by count;		
+	</select>
+	<select id="getAnalyseGroupByEducation"    
+		resultType="com.software.minzhu.bean.User">
+		select 
+		education,count(id) as count
+		from 
+			user group by education order by count;		
+	</select>
+	<insert id="insert" parameterType="com.software.minzhu.bean.User">
+		insert into user (
+			username ,idnumber
+			<if test="level != null and  level != ''">
+			,level</if><if test="password != null and  password !='' ">
+			,password</if>
+			<if test="sex != null">
+				,sex </if>
+			<if test="phone != null and  phone != ''">
+				,phone 			</if>
+			<if test="post != null and post != ''" >
+				,post </if><if test="face != null and  face != ''">
+				,face </if><if test="age != null and age != ''">
+				,age </if><if test="image != null and  image != ''">
+				,image </if><if test="address != null and  address !=''">
+				,address </if><if test="education != null and education != ''">
+				,education 		</if>
+			
+		)  values(
+			#{username} ,#{idnumber}
+			<if test="level != null and  level != ''">
+			,#{level}</if>
+			<if test="password != null and  password != ''">
+			,#{password}
+			</if>
+			<if test="sex != null">
+			,#{sex}
+			</if>
+			<if test="phone != null and  phone != ''">, #{phone}
+			</if>
+			<if test="post != null and post != ''">
+				,#{post} 
+			</if><if test="face != null and face != ''">
+				,#{face }
+			</if><if test="age != null and age != ''">
+				,#{age} 
+			</if>
+		<if test="image != null and image != ''">
+				,#{image} 
+			</if><if test="address != null and address != ''">
+				,#{address} 
+			</if><if test="education != null and education != ''">
+				,#{education} 
+			</if>
+		);
+
+	</insert> 
+	 <update id="update">
+	 	update user
+	 	set
+	 	username = #{username} ,
+	 	idnumber = #{idnumber},
+			 phone = #{phone},
+			 sex= #{sex},
+			 age = #{age},
+			address = #{address},
+			post = #{post},
+			education = #{education},
+			face =#{face}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  <update id="updatePassword">
+	 	update user
+	 	set
+	 	
+			password = #{newPassword}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	  
+	   <update id="updatePhone">
+	 	update user
+	 	set
+	 	
+			phone = #{phone}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	  <update id="updateHasElect">
+	 	update user
+	 	set
+	 	
+			has_elected = 1
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 
+	  <update id="updateLevel">
+	 	update user
+	 	set
+	 	
+			level = #{level}
+	 		
+	 	where 
+	 		id=#{id};
+	 </update>
+	 <delete id="deleteUser">
+	 delete from user where idnumber = #{idnumber};
+	 </delete>
+	
+	
+	 <update id="updateImageById">
+	 	update user
+	 	set
+	 		image = #{image}
+	 	where 
+	 		id=#{userid}
+	 </update> 
+	  <update id="cleanPassword">
+	 	update user
+	 	set
+	 		password = "000000"
+	 	where 
+	 		idnumber=#{idnumber}
+	 </update>
+	   <update id="clearPassword">
+	 	update user
+	 	set
+	 		password = #{password}
+	 	where 
+	 		phone=#{phone}
+	 </update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

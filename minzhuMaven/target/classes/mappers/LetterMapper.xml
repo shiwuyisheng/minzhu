@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.LetterMapper">
+
+<select id="selectLetterByUseridPage"   parameterType="Map" 
+		resultType="com.software.minzhu.bean.Letter">
+		
+		select 
+			l.id,title,content,u.username as username,from_user_id,
+			u.idnumber as idnumber,
+			
+			DATE_FORMAT(create_time,'%Y-%m-%d') createTimeOuput
+		,deal_result,file,niming,answer
+		from 
+			letterbox  l join user u on l.from_user_id = u.id
+			
+		where 
+			l.user_id=#{userid} 
+			<if test="number!=null and limit!=null">
+            limit #{number},#{limit}
+        </if>;
+	</select>
+	
+	<select id="selectAll"   
+		resultType="com.software.minzhu.bean.Letter">
+		
+		select 
+			l.id,title,content,user_id as userid,niming,from_user_id,
+			
+			DATE_FORMAT(create_time,'%Y-%m-%d') createTimeOuput
+			
+		,deal_result,file,niming,u.username as username
+		from 
+			letterbox  l join user u on l.from_user_id = u.id
+					
+	</select>
+	<select id="getCountByUserId"   
+		resultType="com.software.minzhu.bean.Letter">
+		
+		select 
+		count(1)<!-- id,title,content,create_time
+		,deal_result,file,niming  -->
+		from 
+			letterbox
+		<if test="userid != null">	
+		where 
+			user_id= #{userid} 
+			</if>
+	</select>
+	<select id="getLetterById" 
+		resultType="com.software.minzhu.bean.Letter">
+		
+		select 
+			l.id,title,content,from_user_id,
+			
+			DATE_FORMAT(create_time,'%Y-%m-%d') createTimeOuput,u.username as username
+			<!-- FROM_UNIXTIME(create_time,'%Y年%m月%d日')  as createTimeOuput -->
+		,deal_result,file,niming,answer,from_id as fromId
+		from 
+			letterbox  l join user u on l.from_user_id = u.id
+			
+		where 
+			l.id = #{id};
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date   <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user 
+		where 
+			idnumber = #{idnumber};
+	</select>
+	
+	<insert id="insertletter" keyProperty="id" useGeneratedKeys="true"  parameterType="com.software.minzhu.bean.Letter">
+		insert into letterbox (
+			user_id ,title,content,niming,status,file,create_time,from_id,from_user_id
+		
+		)  values(
+			#{userid} ,#{title},#{content}
+			,#{niming},#{status},#{file},#{createTimeInput},#{fromId},#{from_user_id}
+			
+			
+		);
+
+	</insert> 
+	 <update id="updateAnswer">
+	 	update letterbox
+	 	set
+	 	answer = #{answer},deal_result="已回复"
+	 		
+	 	where 
+	 		id=#{id};
+	 </update> 
+	 
+	  
+	 <delete id="deleteLetterById">
+	 delete from letterbox where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

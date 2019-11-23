@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+   
+		
+		
+   <!-- Spring MVC -->
+   
+		<!-- 配置组件扫描 -->
+		<context:component-scan 
+			base-package="com.software.minzhu.controller" />
+			
+		<!-- 配置ViewResolver -->
+		<bean 
+			class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+			<property name="prefix" 
+				value="/WEB-INF/web/" />
+			<property name="suffix" 
+				value=".jsp" />
+		</bean>
+		
+ 
+  
+  
+
+		<!-- 注解驱动 -->
+		 <mvc:annotation-driven /> 
+		<mvc:resources location="/ueditor/" mapping="/ueditor/**"/>
+		<!-- 拦截器方式配置事物 -->
+ <mvc:interceptors>
+<mvc:interceptor>
+<mvc:mapping path="/user/update*"/>
+<mvc:mapping path="/user/change*"/>
+<mvc:mapping path="/user/show*"/>
+<mvc:mapping path="/user/get*"/>
+<mvc:mapping path="/elect/*"/>
+<mvc:mapping path="/decision/*"/>
+<mvc:mapping path="/letter/*"/>
+<mvc:exclude-mapping path="/index.do"/>
+<mvc:exclude-mapping path="/candidate/*"/>
+<mvc:exclude-mapping path="/enlist/**"/>
+<mvc:exclude-mapping path="/communicate_html/**"/>
+<mvc:exclude-mapping path="/user/toFindPassword*"/>
+<mvc:exclude-mapping path="/user/getCode*"/>
+<mvc:exclude-mapping path="/ueditor/**"/>
+<bean id="tttttttttt" class="com.software.minzhu.interceptor.Systems"></bean>
+</mvc:interceptor>
+
+
+<mvc:interceptor>
+<mvc:mapping path="/user/delete*"/>
+
+
+
+<mvc:mapping path="/elect/get*"/>
+<!-- <mvc:mapping path="/candidate/get*"/> -->
+<mvc:mapping path="/candidate/delete*"/>
+<mvc:mapping path="/decision/delete*"/>
+<mvc:mapping path="/letter/delete*"/>
+<mvc:mapping path="/letter/get*"/>
+<mvc:mapping path="/letter/re*"/>
+<mvc:exclude-mapping path="/index.do"/>
+<mvc:exclude-mapping path="/ueditor/**"/>
+<mvc:exclude-mapping path="/communicate_html/**"/>
+<mvc:exclude-mapping path="/candidate/**"/>
+<mvc:exclude-mapping path="/enlist/get*"/>
+<bean id="admin" class="com.software.minzhu.interceptor.AdminSystems"></bean>
+</mvc:interceptor>
+
+
+</mvc:interceptors>
+		<!-- <mvc:interceptors>
+			<mvc:interceptor>
+				<mvc:mapping path="/user/*"/>
+				<mvc:mapping path="/address/*"/>
+				<mvc:mapping path="/cart/*"/>
+				<mvc:mapping path="/order/*"/>
+				<mvc:exclude-mapping path="/user/showLogin.do"/>
+				<mvc:exclude-mapping path="/user/login.do"/>
+				<mvc:exclude-mapping path="/user/showRegister.do"/>
+				<mvc:exclude-mapping path="/user/register.do"/>
+				<mvc:exclude-mapping path="/user/checkUsername.do"/>
+				<mvc:exclude-mapping path="/user/checkLoginUsername.do"/>
+				<mvc:exclude-mapping path="/user/checkPhone.do"/>
+				<mvc:exclude-mapping path="/user/checkEmail.do"/>
+				
+				<bean class="cn.tedu.store.interceptor.LoginInterceptor"></bean>
+			</mvc:interceptor>
+		
+		
+			<mvc:interceptor>
+				<mvc:mapping path="/admin/*"/>
+				<mvc:exclude-mapping path="/admin/showLogin.do"/>
+				<mvc:exclude-mapping path="/admin/login.do"/>
+				<mvc:exclude-mapping path="/admin/validateUsername.do"/>
+				<mvc:exclude-mapping path="/admin/showRegister.do"/>
+				<mvc:exclude-mapping path="/admin/register.do"/>
+				<mvc:exclude-mapping path="/admin/checkUsername.do"/>
+				<mvc:exclude-mapping path="/admin/checkPhone.do"/>
+				<mvc:exclude-mapping path="/admin/checkEmail.do"/>
+				
+				<bean class="com.software.minzhu.interceptor.AdminLoginInterceptor"></bean>
+			</mvc:interceptor>
+		</mvc:interceptors>
+		 -->
+		<!-- 上传文件解析器类  id命名必须符合规范-->
+		<bean id="multipartResolver"
+		 class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+			<!-- 设置上传文件的大小 -->
+			<property name="maxUploadSize" value="10240000"/>
+			<!-- 设置上传文件的编码格式 -->
+			<property name="defaultEncoding" value="UTF-8"/>
+		</bean>
+	 <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->     
+   <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">     
+       <property name="exceptionMappings">     
+           <props>     
+               <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到WebContent目录下的error.jsp页面 -->     
+               <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error</prop>     
+           </props>     
+       </property>     
+   </bean> 
+<!--全局错误输出 -->
+<!-- 
+       注入SimpleMappingExceptionResolver类
+       设定异常映射关系exceptionMappings
+       设定状态码状态码statusCodes
+       设定日志级别
+       设定错误输出页面
+ -->
+<!-- <bean id="exceptionResolver"
+   class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+   <property name="exceptionMappings">
+      <props>
+          <prop key="java.lang.Throwable">views/error</prop>
+         可在这添加之定义异常
+         <prop key="java.lang.Exception">views/error</prop>
+      </props>
+   </property>
+   <property name="statusCodes">
+      <props>
+         <prop key="views/error">500</prop>
+      </props>
+   </property>
+   设置日志输出级别，不定义则默认不输出警告等错误日志信息
+   <property name="warnLogCategory" value="WARN"></property>
+   默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置
+   <property name="defaultErrorView" value="error"></property>
+   默认HTTP状态码
+   <property name="defaultStatusCode" value="500"></property>
+</bean> -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

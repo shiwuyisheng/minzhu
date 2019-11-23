@@ -1,0 +1,142 @@
+<STYLE TYPE="text/css">
+<!--
+/* ------基本元素定义 开始------ */
+BODY {font-size: 9pt; font-family: 宋体; background-color: #FFFFFF; color: #000000; margin: 0px 0px 10px 0px}
+TD {font-size: 9pt; font-family: 宋体; color: #000000}
+P {font-size: 9pt; font-family: 宋体; color: #000000}
+LI, OL, UL, BLOCKQUOTE {font-size: 9pt; font-family: 宋体; color: #000000}
+
+A:LINK {color:#3366cc}
+A:ACTIVE {color:#3366cc}
+A:VISITED {color:#3366cc}
+A:HOVER {color:#0099ff}
+/* ------基本元素定义 结束------ */
+
+/* ------导航菜单类定义 开始------ */
+.tableTopNav {background-color: #0099ff; padding-left: 6px; width: 100%; height:28px}
+.TopNavOff {BACKGROUND-COLOR: #0099ff; BORDER-BOTTOM: #0099ff 1px solid; BORDER-LEFT: #0099ff 1px solid; BORDER-RIGHT: #0099ff 1px solid; BORDER-TOP: #0099ff 1px solid; COLOR: #ffffff; CURSOR: hand; FONT-SIZE: 9pt; MARGIN: 2px 0px; PADDING: 4px 7px 2px 7px}
+.TopNavUp {BACKGROUND-COLOR: #0099ff; BORDER-BOTTOM: #0068AE 1px solid; BORDER-LEFT: #80CCFF 1px solid; BORDER-RIGHT: #0068AE 1px solid; BORDER-TOP: #80CCFF 1px solid; COLOR: #ffffff; CURSOR: hand; FONT-SIZE: 9pt; MARGIN: 2px 0px; PADDING: 4px 7px 2px 7px}
+.TopNavDown {BACKGROUND-COLOR: #0099ff; BORDER-BOTTOM: #80CCFF 1px solid; BORDER-LEFT: #0068AE 1px solid; BORDER-RIGHT: #80CCFF 1px solid; BORDER-TOP: #0068AE 1px solid; COLOR: #ffffff; CURSOR: hand; FONT-SIZE: 9pt; MARGIN: 2px 0px; PADDING: 4px 7px 2px 7px}
+.TopNavLine {color: #80CCFF; padding: 0px 1px}
+/* ------导航菜单类定义 结束------ */
+
+/* ------其他类定义 开始------ */
+.tableLocation {width: 100%}
+.applogo {margin: 0px 6px}
+.locationBar {background-color: #f0f0f0; color: #606060; padding-left: 14px; height: 22px}
+.userBar {background-color: #f0f0f0; color: #606060; padding-right: 14px; height: 22px}
+.locationLine {background-color: #e0e0e0; height: 1px}
+.containArea {width: 100%; padding:10px; margin:0px }
+.loginArea {width: 580px; height: 320px; background-color:#f0f0f0; background-image: url(../images/bgLoginArea.gif); border: #cccccc 1px solid; margin-top: 20px}
+.loginBefore {height:68px; text-align: right; padding-top: 28px}
+.loginBefore span {color: #cc0000}
+.loginForm {background-color: #ffffff; height: 220px; width: 540px; text-align: center; padding-top:28px; background-image: url(../images/bgLoginForm.gif)}
+.loginButton { background-color:#95d5ff; border-color:#c8e9FF #5F98BF #5F98BF #c8e9FF; border-width: 1px; border-style: solid; FONT-SIZE:9pt; PADDING: 2px 6px 2px 6px; height:21px; letter-spacing:6px; cursor: hand}
+.errorMsg {color: #cc0000}
+
+.tab_bg0 {background-color: #f0f0f0; height: 22px; padding: 4px 6px 0px 6px; border-top: #cccccc 1px solid}
+.tab_bg1 {background-color: #95d5ff; height: 22px; padding: 4px 6px 0px 6px; border-top: #5F98BF 1px solid}
+.tab_l1 {width:3px;}
+.tab_r1 {width:5px;}
+.tabButton {background-color: #f0f0f0; border-color: #f8f8f8 #cccccc #cccccc #f8f8f8; border-width: 1px; border-style: solid; padding: 1px 0px; font-size: 9pt; height: 20px; cursor: hand; margin-left: 2px}
+
+.treeRBody {margin: 6px 6px} /*树的右框架边距控制*/
+/* ------其他类定义 结束------ */
+
+/* ------超链接类定义 开始------ */
+A.aLocation:link {color: #606060; font-size: 9pt; text-decoration: none}
+A.aLocation:active {color: #606060; font-size: 9pt; text-decoration: none}
+A.aLocation:visited {color: #606060; font-size: 9pt; text-decoration: none}
+A.aLocation:hover {color: #606060; font-size: 9pt; text-decoration: none}
+
+A.aTabChild:link {color: #3366cc; font-size: 9pt; text-decoration: none}
+A.aTabChild:active {color: #3366cc; font-size: 9pt; text-decoration: none}
+A.aTabChild:visited {color: #3366cc; font-size: 9pt; text-decoration: none}
+A.aTabChild:hover {color: #0099ff; font-size: 9pt; text-decoration: none}
+
+A.aTRSH_Normal:LINK {color:#000000; text-decoration:none; margin-left: 6px} /*树普通*/
+A.aTRSH_Normal:ACTIVE {color:#000000; text-decoration:none}
+A.aTRSH_Normal:VISITED {color:#000000; text-decoration:none}
+A.aTRSH_Normal:HOVER {color:#000000; text-decoration:none}
+
+A.aTRSH_Click:LINK {color:#000000; text-decoration:none} /*树选中*/
+A.aTRSH_Click:ACTIVE {color:#000000; text-decoration:none; background-color:#95d5ff}
+A.aTRSH_Click:VISITED {color:#000000; text-decoration:none}
+A.aTRSH_Click:HOVER {color:#000000; text-decoration:none}
+/* ------超链接类定义 结束------ */
+
+/* ------maintain 1.1版类定义 开始------ */
+.MTTitle {font-size: 14pt; font-weight: bold; line-height: 30px}
+.MTGridTable {width: 100%}
+.MTGridTable td {height: 20px; border: #fefefe 1px solid}
+.MTGridTable td input {font-size: 9pt; margin-top: -1px; margin-bottom: -1px}
+.MTGridTable td select {font-size: 9pt}
+.MTGridTable td textarea {font-size: 9pt}
+.MTGridTitle {background-color: #95d5ff}
+.MTGridTitle td {text-align: left; padding:5px 5px 2px 5px}
+.MTGridText {background-color: #f0f0f0; height: 20px}
+.MTGridText td {text-align: left; padding-left: 5px; padding-right: 5px}
+/*.MTGridTextSel {background-color: #c0c0c0; height: 20px}*/
+.MTGridTextSel {background-color: #DCDCDC; height: 20px}
+
+.MTGridTextSel td {text-align: left; padding-left: 5px; padding-right: 5px}
+.MTGridAddnew {background-color: #f0f0f0; height: 20px}
+.MTGridAddnew td {text-align: left; padding-left: 5px; padding-right: 5px}
+.MTGridSep {}
+.MTGridSep td {height: 20px; padding:0px; background-color: #95d5ff}
+
+.MTFormTable {width: 100%; border: #e0e0e0 6px solid}
+.MTFormTable td input {font-size: 9pt; margin-top: -1px; margin-bottom:-1px}
+.MTFormTable td select {font-size: 9pt}
+.MTFormTable td textarea {font-size: 9pt}
+.MTFormText {background-color: #e0e0e0; font-size: 9pt; height: 22px}
+.MTFormText td {padding: 2px 2px 1px 2px}
+.MTFormLabel {width: 100%; text-align: right; padding-left: 6px}
+
+.MTNav {font-size: 9pt; height: 0px; padding:12px 0px 4px 0px}
+.MTNav td {vertical-align:bottom}
+.MTMark {font-size: 9pt; color: #3366cc}
+.MTReq {color: #cc0000}
+
+.MTParent {border-color: #cccccc; border-width: 2px; border-style: outset inset inset outset; padding:3px}
+.MTSpacing {height:12px}
+.MTChild {border-color: #80CCFF; border-width: 2px; border-style: outset inset inset outset; padding: 3px}
+
+.MTSymTime {font-family: Wingdings; font-size: 12pt; color:#666666;cursor:hand}
+.MTSymCal {font-family: Webdings; font-size: 14pt; color:#666666;cursor:hand}
+.MTSymDate {font-family: Webdings; font-size: 12pt; color:#666666; cursor:hand}
+.MTSymText {font-family: Wingdings; font-size: 14pt; color:#666666; cursor:hand}
+.MTSymList {font-family: Wingdings; font-size: 14pt; color:#666666; cursor:hand}
+/* ------maintain 1.1版类定义 结束------ */
+
+/* 案例管理和操作类定义 开始 */
+.tablelist {}
+.tabletitle {background-color: #95d5ff}
+.tb_daily {BORDER-BOTTOM:medium none; BORDER-LEFT:medium none; BORDER-RIGHT:medium none; BORDER-TOP:medium none; COLOR:palevioletred}
+.td_log {COLOR:white}
+.cstatus {BACKGROUND-COLOR:#5588bb; COLOR:white}
+.tb_querybar {}
+.opencase_title {FONT-SIZE:larger; TEXT-ALIGN:left}
+.logTitle {background-color:#cccccc}
+.logText {background-color:#eeeeee}
+.tb_stepback {BACKGROUND-COLOR:white; TEXT-ALIGN:center}
+.td_showstep {TEXT-ALIGN:center}
+.td_black {TEXT-ALIGN:left}
+.SLeft{WIDTH: 80px;HEIGHT: 30px;BACKGROUND-COLOR: #e0e0e0}
+.SRight{WIDTH: 320px;HEIGHT: 30px;BACKGROUND-COLOR: #e0e0e0}
+.Info{FONT-SIZE: 9pt;MARGIN-LEFT: 100px;TEXT-ALIGN: left}
+/* 案例管理和操作类定义 结束 */
+
+/* ------动态查询FreeQuery类定义 开始------ */
+.queryTable {border:0px}
+.queryTable td {border:0px; padding:2px}
+.queryTableTR {background-color:#f0f0f0}
+.queryTableHead {background-color:#95d5ff; font-size:10pt; height:26px}
+.queryTableText {color:#000000} /* queryTableText和queryTable的颜色设置必须完全一致 */
+.queryInput {}
+.queryTableLeftHand {}/*属性名栏样式*/
+.queryGroup {font-size:10pt}
+.queryRequired {color:#cc0000}
+/* ------动态查询FreeQuery类定义 结束------ */
+-->
+</STYLE> 

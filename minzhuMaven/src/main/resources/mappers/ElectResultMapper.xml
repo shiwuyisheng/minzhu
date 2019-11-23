@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+ 
+<mapper namespace="com.software.minzhu.mapper.ElectResultMapper">
+<select id="getElectsultByElectId"   
+		resultType="com.software.minzhu.bean.ElectionResult">
+		
+		select 
+			es.id,es.post,result,user_id as userId,
+			elected_number as electedNumber,username 
+			
+		from 
+			election_sum es join user u on es.user_id = u.id
+			
+		where 
+			es.election_id=#{electId} 
+			
+	</select>
+	
+	<select id="getElectAnalyse" 
+		resultType="com.software.minzhu.bean.ElectionResult">
+		
+		select 
+			es.id,es.post,result,user_id as userId,
+			elected_number as electedNumber,username 
+			
+		from 
+			election_sum es join user u on es.user_id = u.id
+			
+		
+		 where 
+			 <if test="year!=null">es.year = #{year}</if>   <if test="post!=null">and  es.post=#{post} </if>
+		
+		order by elected_number DESC
+		
+	</select>
+	<select id="getPost" 
+		resultType="java.lang.String"  >
+		
+		select 
+			distinct post
+		from 
+			election_sum  	
+		
+	</select>
+	<select id="getYear" 
+		resultType="java.lang.Integer">
+		
+		select  distinct year  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			election_sum
+		
+	</select>
+	
+	<select id="CountResultByUserId" 
+		resultType="java.lang.Integer"  >
+		
+		select 
+			count(id)
+		from 
+			election_sum 
+			where user_id=#{id} and year=#{year} and post=#{post}	
+		
+	</select>
+	<insert id="addEr" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.ElectionResult">
+		insert into election_sum (
+			year,election_id,post,user_id
+			<!-- phone,sex,age,
+			address,post,
+			,education  -->
+		)  values(
+			#{year} ,#{electionId},#{post},#{userId}
+			
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateER" parameterType="com.software.minzhu.bean.ElectionResult">
+	 	update election_sum
+	 	set
+	 	elected_number=#{electedNumber}
+	 	
+	 		
+	 	where 
+	 		user_id =#{userId} and year =#{year} and post=#{post} 
+	 </update> 
+	 
+	  
+	 <delete id="deleteByElectionId">
+	 delete from election_sum where election_id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

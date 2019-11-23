@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.DecisionQuestionMapper">
+	<select id="getQuestionByDecisitionId"   
+		resultType="com.software.minzhu.bean.DecisionQuestion">
+		
+		select 
+		id,decision_id as decisionId,question_number as questionNumber,
+		question_content as questionContent, question_option as optionsString,question_type as type
+		from 
+			decision_question
+		
+		where 
+			decision_id= #{decisitionId} 
+			
+	</select>
+	<select id="getDecisionQuestionById"   
+		resultType="com.software.minzhu.bean.DecisionQuestion">
+		
+		select 
+		id,decision_id as decisionId,question_number as questionNumber,
+		question_content as questionContent, question_option as optionsString,question_type as type
+		from 
+			decision_question
+		
+		where 
+			id= #{id} limit 1;
+			
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date   <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	
+	<insert id="insertQuestion" parameterType="com.software.minzhu.bean.DecisionQuestion">
+		insert into decision_question (
+			decision_id,question_content, question_option, question_type
+			
+		)  values(
+			#{decisionId} ,#{questionContent},#{optionsString}
+			,#{type}
+			
+		);
+
+	</insert> 
+	 <update id="updateQuestion">
+	 	update decision_question
+	 	set
+	 	question_type = #{dq.type} ,
+	 	question_option = #{dq.optionsString},
+			 question_content = #{dq.questionContent}
+			 
+	 		
+	 	where 
+	 		decision_id=#{dq.decisionId}
+	 </update> 
+	 
+	  
+	 <delete id="deleteLetterById">
+	 delete from letterbox where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

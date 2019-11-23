@@ -1,0 +1,42 @@
+@charset "utf-8";
+/* CSS Document */
+*{ padding:0; margin:0;}
+body,object, iframe, h1, h2, h3, h4, h5, h6,blockquote, a, code, em, img, q, small, strong, dd, dl, dt, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input,textarea {font-size:14px; color:#494949; font-family:"微软雅黑";}
+body{ text-align:center; }
+ul,ol{ list-style:none;}
+a{ color:#333333; text-decoration:none;}
+a:hover{ color:#155783;}
+img{ border:0;}
+/*选项卡添加class的样式  #3687bc*/
+h2 a.xxgk_h_bg{ font-size:18px; background:#009688; color:#f3f4f6;}
+/*办事指南弹出时黑背景*/
+.bszn_black_bg{ display:none; position:fixed; left:0; top:0; width:100%; height:100%; background:#000; opacity:0.1; filter:alpha(opacity=10); cursor:pointer; z-index:998;}
+/*wrapper*/
+.wrapper{ width:1200px; margin:0 auto; text-align:left;}
+.w_content{ overflow:hidden; zoom:1; margin-bottom:20px;}
+/*focus*/
+.focus_pos{ float:left; width:896px;}
+/*login*/
+.login_pos{ float:right; width:384px;}
+/*hotlm_pos*/
+.hotlm_pos{ width:1200px; margin-bottom:20px;}
+/*xxgk_pos*/
+.xxgk_pos{ float:left; width:790px; background:#fff url(xxgk_bg.jpg) repeat-x top;}
+/*zmhd_pos*/
+.zmhd_pos{ float:left; width:790px; background:#fff url(xxgk_bg.jpg) repeat-x top;}
+.yjzj_h{ float:left; width:120px; height:45px; line-height:45px; margin-right:-120px; text-align:center;}
+.dyjh_h{ float:left; width:120px; height:45px; line-height:45px; margin-left:120px; margin-right:-240px; text-align:center;}
+.cjwt_h{ float:left; width:120px; height:45px; line-height:45px; margin-left:240px; margin-right:-360px; text-align:center;}
+.zjzbj_h{ float:left; width:150px; height:45px; line-height:45px; margin-left:360px; margin-right:-510px; text-align:center;}
+.fzwy_h{ float:left; width:120px; height:45px; line-height:45px; margin-left:510px; margin-right:-630px; text-align:center;}
+.fzwy_h a{ color:#000;}
+.zmhd_h a{ display:block; font-weight:normal; color:#000;}
+.zmhd_box{ display:none; float:left; width:100%; padding-bottom:10px; margin-top:50px; margin-right:-100%;}
+.yjzj_box{ display:block;}
+/*政民互动常见问题*/
+.zsk_mk{ float:left; width:160px; margin-left:10px;}
+.wygl_mk{ float:left; width:285px; margin-left:20px;}
+.jygl_mk{ float:left; width:285px; margin-left:20px;}
+/*bmdh_pos*/
+.bmdh_pos{ float:right; width:380px;}
+/*lszt_pos*/

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.EnlisttMapper">
+
+<select id="getPost" resultType="java.lang.String">
+	select post from enlist where id = #{id};</select>
+<select id="getNotEndEnlist" 
+		resultType="com.software.minzhu.bean.Enlist">
+		
+		select 
+			id,year,post,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,elect_id
+			number  
+		from 
+			enlist  	
+		where 
+		
+			start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date};
+	</select>
+
+	<select id="getEnlistById" resultType="com.software.minzhu.bean.Enlist" >
+		
+		select 
+		id,post,year,elect_id,DATE_FORMAT(start_date,'%Y-%m-%d') startDate,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,number 
+			
+		from 
+			enlist  	
+		where 
+		id = #{id} ;
+		
+			<!-- start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date}; -->
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Enlist"  >
+		
+		select 
+			id,elect_id as electId,year,post,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,number 
+		from 
+			enlist  	
+		
+		<if test="keyword!=null">where 
+		
+			title=#{keyword}
+			
+			</if>
+	</select>
+	
+	
+	<insert id="save" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.Enlist">
+		insert into enlist (
+			
+			elect_id,start_date,end_date,year,post
+			
+		)  values(
+			#{electId} ,#{startDate}
+			,#{endDate},#{year},#{post}
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateEnlist" parameterType="com.software.minzhu.bean.Enlist">
+	 	update enlist
+	 	set
+	 	
+	 	start_date = #{startDate},
+			 end_date = #{endDate}
+			, post=#{post}
+	 		
+	 	where 
+	 		id=#{id}
+	 </update> 
+	 
+	  
+	 <delete id="deleteById">
+	 delete from enlist where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

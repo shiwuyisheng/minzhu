@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.CommunicationMapper">
+<select id="getCommunicationById"   
+		resultType="com.software.minzhu.bean.Communication">
+		
+		select 
+			id,title,level,path,content,DATE_FORMAT(created_date,'%Y-%m-%d')  as createDate,is_show as isShow 
+		from 
+			communication
+			
+		where 
+			id=#{id} 
+			
+	</select>
+	
+	<select id="selectByDate" 
+		resultType="Integer">
+		
+		select 
+			id  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			decision  	
+		where 
+		
+			start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date};
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Communication"  >
+		
+		select 
+			id,title,level,path,content,DATE_FORMAT(created_date,'%Y-%m-%d')  as createDate,is_show as isShow 
+		from 
+			communication
+		<if test="keyword!=null">
+		where title like CONCAT('%',#{keyword},'%') 
+			
+			</if>
+			order by created_date DESC;
+	</select>
+	<select id="selectInfo" 
+		resultType="com.software.minzhu.bean.Communication" >
+		
+		select  
+		title,path,DATE_FORMAT(created_date,'%Y-%m-%d')  as createDate
+		from 
+			communication
+		where is_show = 1
+		<if test="keyword!=null">
+		and title  like CONCAT('%',#{keyword},'%')
+			
+			</if>
+		order by created_date DESC
+		limit 5
+	</select>
+	<select id="selectHotInfo" 
+		resultType="com.software.minzhu.bean.Communication">
+		
+		select  
+		title,path,DATE_FORMAT(created_date,'%Y-%m-%d')  as createDate
+		from 
+			communication
+		where is_show = 1 and level=#{level} order by created_date DESC
+				limit 5
+	</select>
+	<insert id="saveCommunication" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.Communication">
+		insert into communication (
+			title,content,created_date,level,path,is_show
+			
+		)  values(
+			#{title} ,#{content} 
+			,#{createDate},#{level},#{path},#{isShow}
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateCommunication" parameterType="com.software.minzhu.bean.Communication">
+	 	update communication
+	 	set
+	 	title = #{title},
+	 	level = #{level},
+	 	path= #{path},content= #{content},
+	 	created_date= #{createDate}   
+	 	where 
+	 		id=#{id}
+	 </update> 
+	 
+	  <update id="updateIsShow" >
+	 	update communication
+	 	set
+	 	is_show = #{show}  
+	 	where 
+	 		id=#{id}
+	 </update> 
+	 <delete id="deleteById">
+	 delete from communication where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

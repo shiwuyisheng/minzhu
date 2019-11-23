@@ -1,0 +1,6 @@
+.zwdt_menu{ float:left; margin-left:120px; margin-right:-120px;}
+.zwdt_h{ float:left; width:120px; height:45px; line-height:45px; margin-left:120px; margin-right:-240px; text-align:center;}
+.zwdt_h a{ display:block; font-weight:normal; color:#000;}
+.zwdt_box{ float:left; width:100%; line-height:32px; padding-bottom:10px; margin-top:50px; margin-right:-100%;}
+.zwdt_box ul li{ padding-left:5px;}
+.zwdt_box span{ padding-right:30px; color:#515151;}

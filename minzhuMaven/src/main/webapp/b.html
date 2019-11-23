@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        html,body{
+            height:100%;
+            width:100%;
+            padding:0;
+            margin:0;
+        }
+        #content{
+            width:90%;
+            height:100%;
+            padding:0;
+            margin:10px auto;
+        }
+    </style>
+
+    <script type="text/javascript" src="jquery-1.10.2.js"></script>
+</head>
+<body>
+    <img src="1.jpg"></img> 
+<p style="text-align: center;">ddaf&nbsp;</p><p>ddfas&nbsp;<strong>jjbn d</strong><span style="color: rgb(255, 0, 0);"><strong>jfkkjdkfkndkfmcn</strong></span><strong>j</strong></p><p><strong>adfjkjk</strong></p><p>前言：之前查找一个网站的加密方式找了一个星期。放弃了。过了两天又满血归来，一个小时破解了</p><p><br/></p><p>注：本篇博客，不会讲解任何加密相关的算法。爬虫破解加密算法，可以完全不懂加密算法，需要的是耐心</p><p><br/></p><p>先说说最近碰到反爬虫相关的方式吧</p><p><br/></p><p>1.加密+访问次数限制+每个页面相关信息的条目需要点详情进行二次请求</p><p><br/></p><p>2.复杂的加密算法进行参数+时间戳+sig值，后台进行 参数+时间限制</p><p><br/></p><p>3.定时同步cookie+每个界面一个cookie</p><p><br/></p><p>以上三种加密&nbsp;</p><p><br/></p><p>第一种破解方式是 简单的破解方式使用 selenium，或者其他可以执行JS 并且可以存储cookie，手动设置cookie的值，selenium 有个通病 比较慢。</p><p><br/></p><p>第二种 有点投机取巧了， 找他们的相关的APP，看下APP是不是没有加密或者加密比较薄弱（一般网页加密，app也是加密的但是不试一下怎么知道不成功）</p><p><br/></p><p>第三种方式，就要挑战实力了。不，是耐力</p><p><br/></p><p>如果手动去设置破解方式的话，需要打开浏览器的 开发者模式，查看每次的网络请求。</p><p><br/></p><p>查看网络参数</p><p><br/></p><p>需要的技能跟工具</p><p><br/></p><p>技能</p><p><br/></p><p>稍微的懂JS</p><p><br/></p><p>工具</p><p><br/></p><p>1.nodejs（用以快速执行JS，方便调试解密的JS）</p><p><br/></p><p>2.postman（测试接口）</p><p><br/></p><p>3.内容比对工具（我用的是SVN，用以比对 自己JS加密的数据跟网页加密数据比对）</p><p><br/></p><p>4.自己用着顺手的文本编辑器(用以查看网页源码中的JS，查找加密JS类库)</p><p><br/></p><p>有工具加技能之后，说下一般情况</p><p><br/></p><p>1，如果是可逆的加密，都会有个秘钥，秘钥一般都是登录的时候返回</p><p><br/></p><p>在 登录接口返回、登录cookie中、JS类库中、单独接口返回。百分之九十不会超过这四项。</p><p><br/></p><p>可逆加密拿到秘钥之后，存储起来，打开所有在网页上下载的JS类库，假设加密串的参数名称是sig，在所有的JS类库中搜索sig，找到以后，可以选择，浏览器中打断点跟下这个值到底在哪里产生的，对JS比较熟的话，直接阅读代码，找到产生sig值的方法，自己创建一个JS文件，帖进去，在nodeJS中执行这段JS代码，提示少什么方法，就去查找什么方法，帖进去，直到，自己创建JS类库不在报错，这样的话应该，加密的JS找到了，按照书写规范，加密解密的JS 应该都在一个JS中，然后，拿网页产生的加密后的字符串放进去，进行解密，看下参数拼接的类型。</p><p>---------------------&nbsp;</p><p>作者：Cod_erL&nbsp;</p><p>来源：CSDN&nbsp;</p><p>原文：https://blog.csdn.net/u014510302/article/details/77479913&nbsp;</p><p>版权声明：本文为博主原创文章，转载请附上博文链接！</p><p><br/></p>
+ <img src="1.jpg"></img> 
+</body>
+    <script>
+
+var _w = parseInt($(window).width());//获取浏览器的宽度
+// $(".new_mess_c img").each(function(i){
+//         var img = $(this);
+//         var realWidth;//真实的宽度
+//         var realHeight;//真实的高度
+//    //这里做下说明，$("<img/>")这里是创建一个临时的img标签，类似js创建一个new Image()对象！
+//    $("<img/>").attr("src", $(img).attr("src")).load(function() {
+                
+//                   如果要获取图片的真实的宽度和高度有三点必须注意
+//                   1、需要创建一个image对象：如这里的$("<img/>")
+//                   2、指定图片的src路径
+//                   3、一定要在图片加载完成后执行如.load()函数里执行
+                 
+//                 realWidth = this.width;
+//                 realHeight = this.height;
+//                //如果真实的宽度大于浏览器的宽度就按照100%显示
+//                 if(realWidth>=_w){
+//                        $(img).css("width","100%").css("height","auto");
+//                     }
+//                     else{//如果小于浏览器的宽度按照原尺寸显示
+//                       $(img).css("width",realWidth+'px').css("height",realHeight+'px');
+//                     }
+//             });
+//     });
+
+        var imgs = document.getElementsByTagName('img');
+      
+        for(var i in imgs)
+        {   
+            //alert(i);
+            
+            var img = imgs[i];
+            var realWidth;//真实的宽度
+            var realHeight;//真实的高度
+           
+              realWidth = img.width;
+                realHeight = imgs.height;
+                //如果真实的宽度大于浏览器的宽度就按照100%显示
+                if(realWidth>=_w){
+                       $(img).css("width","100%").css("height","auto");
+                    }
+                    else{//如果小于浏览器的宽度按照原尺寸显示
+                      $(img).css("width",realWidth+'px').css("height",realHeight+'px');
+                    }
+            
+        }
+    </script>
+  
+</html>

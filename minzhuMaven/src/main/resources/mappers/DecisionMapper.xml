@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.DecisionMapper">
+
+
+
+<select id="selectMydecision" 
+		resultType="com.software.minzhu.bean.Decision"  >
+		
+		select 
+			d.id,d.title,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,conditions,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,d.result  
+		from 
+			decision  d	join decision_result  dr on d.id=dr.decision_id
+		where dr.user_id = #{user_id}
+		<if test="keyword!=null">and
+		
+			title=#{keyword}
+			
+			</if>
+	</select>
+<select id="getNotEndDecision"   
+		resultType="com.software.minzhu.bean.Decision">
+		
+		select 
+			id,title,start_date as startDate,end_date as endDate,content,conditions,result
+			
+		from 
+			decision
+			
+		where 
+			start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date};
+			
+	</select>
+<select id="getDecisionById"   
+		resultType="com.software.minzhu.bean.Decision">
+		
+		select 
+			id,title,start_date as startDate,end_date as endDate,content,conditions,result
+			
+		from 
+			decision
+			
+		where 
+			id=#{id} 
+			
+	</select>
+	
+	
+	<select id="selectByDate" 
+		resultType="Integer">
+		
+		select 
+			id  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			decision  	
+		where 
+		
+			start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date};
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Decision"  >
+		
+		select 
+			id,title,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,conditions,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			decision  	
+		
+		<if test="keyword!=null">where 
+		
+			title=#{keyword}
+			
+			</if>
+	</select>
+	<select id="getNullResult" 
+		resultType="com.software.minzhu.bean.Decision"  >
+		
+		select 
+			id,title,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,conditions,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result  
+		from 
+			decision  	
+		
+		where 
+		start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date} ; 			
+			
+	</select>
+	<select id="getUserByIdnumber" 
+		resultType="com.software.minzhu.bean.User">
+		
+		select  id,username ,idnumber,password,
+			phone,sex,age,
+			address,post,
+			education,face,born_date  
+		from 
+			user
+		where 
+			idnumber = #{idnumber};
+	</select>
+	
+	<insert id="addDecision" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.Decision">
+		insert into decision (
+			title,content,start_date,end_date,conditions
+			<!-- phone,sex,age,
+			address,post,
+			,education  -->
+		)  values(
+			#{title} ,#{content}
+			,#{startDate},#{endDate},#{conditions}
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateDecision" parameterType="com.software.minzhu.bean.Decision">
+	 	update decision
+	 	set
+	 	
+	 	start_date = #{decision.startDate},
+			 end_date = #{decision.endDate},
+			 title= #{decision.title},conditions=#{decision.conditions}
+	 		
+	 	where 
+	 		id=#{decision.id}
+	 </update> 
+	 
+	   <update id="updateResult" >
+	 	update decision
+	 	set
+			 result= #{result}
+	 	where 
+	 		id=#{id}
+	 </update>
+	 <delete id="deleteByid">
+	 delete from decision where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

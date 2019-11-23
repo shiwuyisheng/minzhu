@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="com.software.minzhu.mapper.ElectMapper">
+
+
+<select id="getNotEndElect" 
+		resultType="com.software.minzhu.bean.Election">
+		
+		select 
+			id,year,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,enlist_id,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result,post,conditions,
+			should_number as shouldNumber,
+			had_number as hadNumber  
+		from 
+			election  	
+		where 
+		
+			(start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date}) or start_date!=null;
+	</select>
+
+
+<select id="getElectByEnlistId"   
+		resultType="com.software.minzhu.bean.Election">
+		
+		select 
+			id,year,conditions,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,enlist_id,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result,post,
+			should_number as shouldNumber,
+			had_number as hadNumber 
+			
+		from 
+			election
+			
+		where 
+			enlist_id=#{id} 
+			
+	</select>
+	
+	<select id="selectByDate" 
+		resultType="Integer">
+		
+		select 
+			id  <!-- ,username,password,image,
+			phone,email,gender,
+			created_user as createdUser,
+			created_time as createdTime,
+			modified_user as modifiedUser,
+			modified_time as modifiedTime -->
+		from 
+			decision  	
+		where 
+		
+			start_date  <![CDATA[<=]]> #{date}  and end_date  <![CDATA[>=]]>  #{date};
+	</select>
+	<select id="selectAll" 
+		resultType="com.software.minzhu.bean.Election"  >
+		
+		select 
+			id,year,conditions,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,enlist_id,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result,post,
+			should_number as shouldNumber,
+			had_number as hadNumber  
+		from 
+			election
+		
+		<if test="keyword!=null">where 
+		
+			year=#{keyword}
+			
+			</if>
+	</select>
+	<select id="getElectById" 
+		resultType="com.software.minzhu.bean.Election">
+		
+		select  year,id,conditions,
+			DATE_FORMAT(start_date,'%Y-%m-%d') startDate,enlist_id,
+			DATE_FORMAT(end_date,'%Y-%m-%d') as endDate,result,post,
+			should_number as shouldNumber,
+			had_number as hadNumber
+		from 
+			election
+		where 
+			id = #{id};
+	</select>
+	
+	<insert id="insertElection" keyProperty="id" useGeneratedKeys="true" parameterType="com.software.minzhu.bean.Election">
+		insert into election (
+			year,post,start_date,end_date,enlist_id,conditions
+			
+		)  values(
+			#{year} ,#{post} 
+			,#{startDate},#{endDate},#{enlist_id},#{conditions}
+			
+		)
+		
+
+	</insert> 
+	 <update id="updateElection" parameterType="com.software.minzhu.bean.Election">
+	 	update election
+	 	set
+	 	start_date = #{election.startDate},
+			 end_date = #{election.endDate},
+			 year= #{election.year},
+			 conditions = #{election.conditions}
+	 	where 
+	 		id=#{election.id}
+	 </update> 
+	 
+	  <update id="updatePost">
+	 	update election
+	 	set
+	 	
+	 	post=#{post}
+	 		
+	 	where 
+	 		id=#{id}
+	 </update> 
+	   <update id="updateCount">
+	 	update election
+	 	set
+	 	
+	 	had_number = #{hadCount},
+			 should_number = #{shouldCount}
+	 		
+	 	where 
+	 		year=#{year} 
+	 </update> 
+	 <delete id="deleteById">
+	 delete from election where id = #{id};
+	 </delete>
+	
+
+	 
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

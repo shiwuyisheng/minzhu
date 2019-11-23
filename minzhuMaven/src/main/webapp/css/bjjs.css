@@ -1,0 +1,109 @@
+*{padding:0; margin:0;}
+body,div,object, iframe, h1, h2, h3, h4, h5, h6,blockquote, a, code, em, img, q, small, strong, dd, dl, dt, li, ol, ul, fieldset, form, label, table, tbody, tr, th, td, input,textarea {font-size:14px; color:#494949; font-family:"微软雅黑"; font-weight:normal;}
+body{background:#fafafa;}
+ul,ol,li{ list-style:none;}
+a{ color:#333333; text-decoration:none;outline:none}
+a:hover{ color:#155783;}
+img{ border:0;}
+.clear{ clear:both;zoom:1;height:0;font-size: 1px;line-height: 0px;text-indent:-9999px;}
+.clearfix:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+.clearfix {zoom:1;display:block;_height:1px;}
+.fwgl_content{
+        width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+}
+
+.fl{float:left;}
+.fr{float:right;}
+
+.fdcsjtj_header{*margin-top:0;}
+
+/*房屋管理下的导航*/
+.fwgl_top{width:1198px;border: 1px dotted #c6c6c6;background:#fff;margin:-14px auto 0;padding:20px 0 30px;box-shadow: 4px 5px 2px #f2f2f2;}
+.fwgl_navigation ul li {
+    float: left;
+    border: 1px dotted #c6c6c6;
+    border-radius: 2px;
+    margin-left: 30px;
+    padding: 5px 0;
+    text-align: center;
+    width: 136px;
+}
+.fwgl_navigation ul li a{
+        color:#000000;
+    }
+.fwgl_navigation ul li.chover{border: 1px solid #94BFDC;
+        background:#94BFDC;
+        color:#fff;
+    }
+.fwgl_navigation ul li:hover {
+        background:#94C0DD;
+    }
+.fwgl_navigation ul li:hover a,.fwgl_navigation ul li.chover a{color:#fff;}
+.icon_list{
+        width:100%;
+        overflow: hidden;
+        margin-top: 30px;
+    }
+.icon_list tr td{width:20%;text-align:center;}
+.icon_list tr td a{font-size:16px;}
+.icon_list td.li_1 a{color:#FDB372;}
+.icon_list td.li_2 a{color:#60BBD7;}
+.icon_list td.li_3 a{color:#D1BB57;}
+.icon_list td.li_4 a{color:#4FAEA7;}
+.icon_list td.li_5 a{color:#6EB271;}
+ /*   .icon_list ul li{
+        width: 165px;
+        float:left;
+        text-align: center;
+        margin-right: 80px;
+    }
+    .icon_list ul li a{
+        font-size:16px;
+    }
+    .icon_list ul li.li_1{
+        margin-left: 30px;
+    }
+    .icon_list ul li.li_5{
+        margin-right: 0px;
+    }
+    .icon_list ul li span {
+        display: inline-block;
+        width: 80px;
+        height:65px;
+        background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat 0px -13px ;
+    }
+    .icon_list ul li.li_1 a{color:#FDB372;}
+    .icon_list ul li.li_1 span{background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat 0px -13px ;}
+    .icon_list ul li.li_2 a{color:#60BBD7;}
+    .icon_list ul li.li_2 span{background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat -111px -13px ;}
+    .icon_list ul li.li_3 a{color:#D1BB57;}
+    .icon_list ul li.li_3 span{background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat -218px -13px ;}
+    .icon_list ul li.li_4 a{color:#4FAEA7;}
+    .icon_list ul li.li_4 span{background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat -6px -80px ;}
+    .icon_list ul li.li_5 a{color:#6EB271;}
+    .icon_list ul li.li_5 span{background: url("/bjjs/uiFramework/commonResource/image/2016070117015023308.png") no-repeat -107px -80px ;}*/
+/*房屋管理下的导航结束*/
+
+/*面包屑导航*/
+.mbx_nav ,.xxgk_mbx_nav{
+        margin-top: 20px;
+        margin-bottom: 15px;
+}
+.dangqian{
+        margin-bottom: 15px;
+}
+/*list_feny*/
+.list_feny{background:#fff; overflow:hidden; padding:20px 0;margin-bottom:20px;}
+.list_feny ol{ float:right;}
+.list_feny ol li{ overflow:hidden; float:left; *display:inline; line-height:36px; margin-left:5px; color:#afafaf; text-align:center; vertical-align:middle;}
+.list_feny ol li font{ float:left; display:block; width:36px; height:36px; background:#327ebf;}
+.list_feny ol li span{ float:left; height:36px;}
+.list_feny ol li font.NormalRed{ color:#FFF;}
+.list_feny ol li a{ float:left; display:block; width:35px; height:35px; line-height:35px; border:1px solid #ededed; color:#3d3d3d;}
+.list_feny ol li .ipt_txt{ width:35px; line-height:21px; padding:3px 0; margin:0 5px; border: 1px solid #ededed; text-align:center; vertical-align:middle;}
+.list_feny ol li .ipt_btn{ width:43px; height:22px; background:#FFF; margin:7px 5px; border: 1px solid #ededed; vertical-align:middle; cursor:pointer;}
+.list_feny ol li.ym{ margin-right:-5px;}
+.list_feny ol li.sx a{ width:68px; color:#cccccc;}
+.list_feny ol li.sx a.pagingNormal{ color:#3d3d3d;}
